@@ -3,21 +3,40 @@
 This repository runs a private Minecraft Java server on a Windows notebook with:
 
 - Fabric mods
-- Tailscale on the Windows host for remote access
 - Docker Compose for reproducible server setup
 - a pinned Modrinth manifest for mod sync
+- two remote access options: Tailscale or `playit.gg`
 
 The runtime model on Windows is simple:
 
-- Tailscale runs on Windows, not in Docker
 - Docker runs the Minecraft server container
 - Docker publishes port `25565` on the Windows host
-- friends connect to your Windows notebook's Tailscale IP on port `25565`
+- you expose that host port either through Tailscale or through `playit.gg`
 
-This matches Tailscale's Docker Desktop guidance: the Docker-in-Tailscale sidecar pattern is for Linux, while on Docker Desktop you should run Tailscale on the host if you want clean local access to your containers and host services. Sources:
+## Exposure Options
 
-- https://tailscale.com/docs/features/containers/docker/docker-desktop
-- https://tailscale.com/docs/features/containers/docker
+You have two supported ways to let other people join:
+
+### Option 1: Tailscale
+
+Use this when you want a private network and do not mind requiring players to install Tailscale.
+
+- you run Tailscale on the Windows host
+- players also install Tailscale
+- players connect to your notebook's Tailscale IP on port `25565`
+
+### Option 2: playit.gg
+
+Use this when you want players to join without installing Tailscale.
+
+- you run the `playit.gg` agent on the Windows host
+- players do not need Tailscale
+- players join using the public `playit.gg` address assigned to your tunnel
+
+According to playit.gg's current docs, only the host runs the agent and players just connect. Sources:
+
+- https://playit.gg/download/windows
+- https://playit.gg/support/how-to-setup-a-mc-server/
 
 ## Repository Layout
 
@@ -43,23 +62,30 @@ There is also a `.devcontainer/` directory for the development environment. The 
 
 ## Platform Assumption
 
-This setup is for Windows with Docker Desktop and the Tailscale Windows app installed on the host.
-
-Do not run the Tailscale sidecar container model on this notebook. Use the host Tailscale client instead.
+This setup is for Windows with Docker Desktop. Remote access should run on the Windows host, not in Docker.
 
 ## Prerequisites
 
 On the notebook:
 
 - Docker Desktop with Compose support
-- Tailscale for Windows installed and signed in
 - Minecraft Java Edition if you also want to play from the notebook
+- one remote access option:
+  - Tailscale for Windows, or
+  - `playit.gg` for Windows
 
-For players:
+For players using Tailscale:
 
 - Minecraft Java Edition
 - Tailscale installed and signed in
 - access to your tailnet, or access to the shared device
+- the same Minecraft version as the server
+- the same Fabric loader major version as the server
+- the same required client mods as the server modpack
+
+For players using `playit.gg`:
+
+- Minecraft Java Edition
 - the same Minecraft version as the server
 - the same Fabric loader major version as the server
 - the same required client mods as the server modpack
@@ -109,19 +135,45 @@ make sync-mods
 docker compose logs -f minecraft
 ```
 
-7. Confirm Tailscale is running on Windows, then get your notebook's Tailscale IPv4 address in PowerShell:
+7. Choose one remote access option below.
+
+### Option A: Tailscale Setup On Windows Host
+
+1. Install and sign in to Tailscale on Windows.
+2. Get your notebook's Tailscale IPv4 address in PowerShell:
 
 ```powershell
 tailscale ip -4
 ```
 
-8. Share that IP with players as:
+3. Share this address with players:
 
 ```text
 <tailscale-ip>:25565
 ```
 
-### Players: Join The Server
+### Option B: playit.gg Setup On Windows Host
+
+1. Download the Windows agent from:
+
+```text
+https://playit.gg/download/windows
+```
+
+2. Run the `playit.gg` Windows agent on the notebook.
+3. Follow the browser-based setup or claim flow shown by the agent.
+4. Create a Minecraft Java tunnel that forwards to your local server on:
+
+```text
+127.0.0.1:25565
+```
+
+5. Copy the public `playit.gg` address that gets assigned to the tunnel.
+6. Share that address with players.
+
+## Players: Join The Server
+
+### Join Through Tailscale
 
 1. Install Tailscale and sign in.
 2. Join the same tailnet, or accept access to the shared device.
@@ -138,6 +190,17 @@ tailscale ip -4
 
 If MagicDNS is enabled in your tailnet, players can also try the Windows notebook's Tailscale DNS name instead of the IP.
 
+### Join Through playit.gg
+
+1. Install Minecraft Java Edition.
+2. Install the same Minecraft version as the server.
+3. Install Fabric Loader matching the server's major Fabric version.
+4. Install the same required client mods.
+5. Open Minecraft Multiplayer.
+6. Add the public `playit.gg` address provided by the host.
+
+No Tailscale install is required for players in this option.
+
 ## Networking Model
 
 The Minecraft container publishes a normal host port:
@@ -150,8 +213,8 @@ ports:
 That means:
 
 - Docker exposes Minecraft on the Windows host
-- Tailscale on the Windows host makes that host reachable to your friends
-- players connect using the Windows host's Tailscale IP or DNS name
+- Tailscale can expose that host to your friends privately
+- `playit.gg` can expose that host to your friends publicly without port forwarding
 
 ## Mod Manifest
 
@@ -264,7 +327,7 @@ Do not commit:
 
 ## Troubleshooting
 
-### Players Cannot Connect
+### Players Cannot Connect Through Tailscale
 
 Check:
 
@@ -273,6 +336,18 @@ Check:
 - Docker Desktop is running
 - the Minecraft server finished starting
 - Windows Firewall is not blocking the service on the Tailscale interface
+- all players are using Minecraft Java Edition
+- all players match the server's Minecraft version, Fabric version, and required mods
+
+### Players Cannot Connect Through playit.gg
+
+Check:
+
+- the `playit.gg` agent is running on the Windows notebook
+- the tunnel targets `127.0.0.1:25565`
+- Docker Desktop is running
+- the Minecraft server finished starting
+- you shared the exact public `playit.gg` address assigned to the tunnel
 - all players are using Minecraft Java Edition
 - all players match the server's Minecraft version, Fabric version, and required mods
 
