@@ -1,0 +1,19 @@
+{
+	"name": "ubuntu-devcontainer",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	"customizations": {
+		"vscode": {
+		"extensions": [
+			"ms-python.python",
+			"hashicorp.terraform",
+			"redhat.ansible"
+		]
+		}
+	},
+	"remoteUser": "root",
+	"postCreateCommand": {},
+	"features": {}
+}
