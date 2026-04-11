@@ -18,6 +18,5 @@ backup:
 validate:
 	docker compose config
 
-
 sync-mods:
 	./scripts/sync_mods.sh

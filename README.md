@@ -1,19 +1,29 @@
 # Minecraft Server
 
-This repository runs a private Minecraft Java server on a Linux notebook with:
+This repository runs a private Minecraft Java server on a Windows notebook with:
 
 - Fabric mods
-- Tailscale for remote access
-- Docker Compose for reproducible setup
+- Tailscale on the Windows host for remote access
+- Docker Compose for reproducible server setup
 - a pinned Modrinth manifest for mod sync
 
-The Minecraft container shares the Tailscale container's network namespace, so players join through the Tailscale node instead of your notebook's normal LAN address.
+The runtime model on Windows is simple:
+
+- Tailscale runs on Windows, not in Docker
+- Docker runs the Minecraft server container
+- Docker publishes port `25565` on the Windows host
+- friends connect to your Windows notebook's Tailscale IP on port `25565`
+
+This matches Tailscale's Docker Desktop guidance: the Docker-in-Tailscale sidecar pattern is for Linux, while on Docker Desktop you should run Tailscale on the host if you want clean local access to your containers and host services. Sources:
+
+- https://tailscale.com/docs/features/containers/docker/docker-desktop
+- https://tailscale.com/docs/features/containers/docker
 
 ## Repository Layout
 
-The README now matches the current repository contents relevant to running the server:
+The README matches the current repository contents relevant to running the server:
 
-- `compose.yaml`: starts `tailscale` and `minecraft`
+- `compose.yaml`: starts the Minecraft server container
 - `.env.example`: local configuration template
 - `config/server.properties`: tracked Minecraft server settings
 - `config/ops.json`: operator list
@@ -26,30 +36,30 @@ The README now matches the current repository contents relevant to running the s
 - `scripts/backup_server.sh`: create a world backup archive
 - `scripts/sync_mods.py`: sync pinned mods from Modrinth
 - `scripts/sync_mods.sh`: shell wrapper for mod sync
-- `tailscale/state/`: persistent Tailscale state
 - `data/`: world and generated server data
 - `backups/`: backup output
 
-There is also a `.devcontainer/` directory for the development environment, but it is not part of the runtime setup.
+There is also a `.devcontainer/` directory for the development environment. The `tailscale/state/` directory is left over from the earlier Linux-sidecar approach and is not used on Windows.
 
 ## Platform Assumption
 
-This Compose setup is intended for a Linux notebook because it mounts `/dev/net/tun` and gives the Tailscale container the capabilities it needs.
+This setup is for Windows with Docker Desktop and the Tailscale Windows app installed on the host.
 
-If you are on macOS or Windows with Docker Desktop, run Tailscale on the host instead of in Compose.
+Do not run the Tailscale sidecar container model on this notebook. Use the host Tailscale client instead.
 
 ## Prerequisites
 
 On the notebook:
 
-- Docker Engine with Compose support
-- a Tailscale account
+- Docker Desktop with Compose support
+- Tailscale for Windows installed and signed in
 - Minecraft Java Edition if you also want to play from the notebook
 
 For players:
 
 - Minecraft Java Edition
 - Tailscale installed and signed in
+- access to your tailnet, or access to the shared device
 - the same Minecraft version as the server
 - the same Fabric loader major version as the server
 - the same required client mods as the server modpack
@@ -66,11 +76,10 @@ cp .env.example .env
 
 2. Edit `.env` and set these values:
 
-- `TS_AUTHKEY`
-- `TS_HOSTNAME`
 - `TZ`
 - `VERSION`
 - `MEMORY`
+- `SERVER_PORT`
 - optionally `FABRIC_LOADER_VERSION`
 - optionally `FABRIC_INSTALLER_VERSION`
 
@@ -97,13 +106,13 @@ make sync-mods
 6. Follow startup logs:
 
 ```bash
-docker compose logs -f tailscale minecraft
+docker compose logs -f minecraft
 ```
 
-7. Get the Tailscale IP of the notebook node:
+7. Confirm Tailscale is running on Windows, then get your notebook's Tailscale IPv4 address in PowerShell:
 
-```bash
-docker compose exec tailscale tailscale ip -4
+```powershell
+tailscale ip -4
 ```
 
 8. Share that IP with players as:
@@ -115,7 +124,7 @@ docker compose exec tailscale tailscale ip -4
 ### Players: Join The Server
 
 1. Install Tailscale and sign in.
-2. Join the same tailnet, or accept access to the shared node.
+2. Join the same tailnet, or accept access to the shared device.
 3. Install Minecraft Java Edition.
 4. Install the same Minecraft version as the server.
 5. Install Fabric Loader matching the server's major Fabric version.
@@ -127,25 +136,22 @@ docker compose exec tailscale tailscale ip -4
 <tailscale-ip>:25565
 ```
 
-If MagicDNS is enabled, players can also try:
-
-```text
-<ts-hostname>:25565
-```
+If MagicDNS is enabled in your tailnet, players can also try the Windows notebook's Tailscale DNS name instead of the IP.
 
 ## Networking Model
 
-The Minecraft container uses:
+The Minecraft container publishes a normal host port:
 
 ```yaml
-network_mode: service:tailscale
+ports:
+  - "${SERVER_PORT:-25565}:25565"
 ```
 
 That means:
 
-- the Minecraft server does not publish a normal Docker `ports:` mapping
-- inbound traffic reaches Minecraft through the Tailscale container's network stack
-- players connect using the Tailscale IP or MagicDNS name
+- Docker exposes Minecraft on the Windows host
+- Tailscale on the Windows host makes that host reachable to your friends
+- players connect using the Windows host's Tailscale IP or DNS name
 
 ## Mod Manifest
 
@@ -204,13 +210,13 @@ Backup the world:
 Show logs:
 
 ```bash
-docker compose logs -f tailscale minecraft
+docker compose logs -f minecraft
 ```
 
-Show the Tailscale IP:
+Show the Windows host Tailscale IP:
 
-```bash
-docker compose exec tailscale tailscale ip -4
+```powershell
+tailscale ip -4
 ```
 
 ## Updating Later
@@ -254,27 +260,19 @@ Do not commit:
 - `.env`
 - `data/`
 - `backups/`
-- `tailscale/state/`
 - unmanaged downloaded mod jars
 
 ## Troubleshooting
-
-### The Tailscale Container Does Not Come Online
-
-Check:
-
-- the notebook is Linux and has `/dev/net/tun`
-- `TS_AUTHKEY` is valid
-- the container has `NET_ADMIN` and `NET_RAW`
-- your environment allows TUN devices inside containers
 
 ### Players Cannot Connect
 
 Check:
 
-- both sides are logged in to Tailscale
+- Tailscale is running on the Windows notebook
 - the notebook has a Tailscale IP
+- Docker Desktop is running
 - the Minecraft server finished starting
+- Windows Firewall is not blocking the service on the Tailscale interface
 - all players are using Minecraft Java Edition
 - all players match the server's Minecraft version, Fabric version, and required mods
 
