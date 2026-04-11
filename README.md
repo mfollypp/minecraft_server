@@ -49,12 +49,13 @@ The README matches the current repository contents relevant to running the serve
 - `config/whitelist.json`: whitelist data
 - `manifests/mods.json`: pinned Modrinth mod manifest
 - `mods/`: generated mod jars plus `mods/README.md`
-- `scripts/start_server.sh`: start the stack
-- `scripts/stop_server.sh`: stop the stack
-- `scripts/update_server.sh`: recreate the Minecraft container after config or version changes
-- `scripts/backup_server.sh`: create a world backup archive
+- `scripts/start_server.ps1`: start the stack on Windows
+- `scripts/stop_server.ps1`: stop the stack on Windows
+- `scripts/update_server.ps1`: recreate the Minecraft container after config or version changes on Windows
+- `scripts/backup_server.ps1`: create a world backup archive on Windows
 - `scripts/sync_mods.py`: sync pinned mods from Modrinth
-- `scripts/sync_mods.sh`: shell wrapper for mod sync
+- `scripts/sync_mods.ps1`: run mod sync on Windows
+- `scripts/*.sh`: optional shell wrappers if you also use a Unix-like shell
 - `data/`: world and generated server data
 - `backups/`: backup output
 
@@ -69,6 +70,7 @@ This setup is for Windows with Docker Desktop. Remote access should run on the W
 On the notebook:
 
 - Docker Desktop with Compose support
+- Python 3 for the mod sync script
 - Minecraft Java Edition if you also want to play from the notebook
 - one remote access option:
   - Tailscale for Windows, or
@@ -94,10 +96,10 @@ For players using `playit.gg`:
 
 ### Host: Set Up The Server
 
-1. Copy the local environment template:
+1. Copy the local environment template in PowerShell:
 
-```bash
-cp .env.example .env
+```powershell
+Copy-Item .env.example .env
 ```
 
 2. Edit `.env` and set these values:
@@ -109,29 +111,29 @@ cp .env.example .env
 - optionally `FABRIC_LOADER_VERSION`
 - optionally `FABRIC_INSTALLER_VERSION`
 
-3. Edit the pinned mod manifest:
+3. Inspect and edit the pinned mod manifest:
 
-```bash
-sed -n '1,200p' manifests/mods.json
+```powershell
+Get-Content manifests/mods.json
 ```
 
 Replace `replace-with-modrinth-version-id` with real Modrinth version IDs for the mods you want.
 
 4. Sync the mod directory from the manifest:
 
-```bash
-make sync-mods
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\sync_mods.ps1
 ```
 
 5. Start the server stack:
 
-```bash
-./scripts/start_server.sh
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\start_server.ps1
 ```
 
 6. Follow startup logs:
 
-```bash
+```powershell
 docker compose logs -f minecraft
 ```
 
@@ -232,8 +234,8 @@ Example entry:
 
 Run this after changing the manifest:
 
-```bash
-make sync-mods
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\sync_mods.ps1
 ```
 
 The sync script downloads the primary file for each pinned Modrinth version, verifies its SHA-1 checksum, writes the jar into `mods/`, and removes stale managed jars.
@@ -242,37 +244,37 @@ The sync script downloads the primary file for each pinned Modrinth version, ver
 
 Start:
 
-```bash
-./scripts/start_server.sh
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\start_server.ps1
 ```
 
 Stop:
 
-```bash
-./scripts/stop_server.sh
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\stop_server.ps1
 ```
 
 Restart after config, version, or mod changes:
 
-```bash
-./scripts/update_server.sh
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\update_server.ps1
 ```
 
 Sync mods:
 
-```bash
-make sync-mods
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\sync_mods.ps1
 ```
 
 Backup the world:
 
-```bash
-./scripts/backup_server.sh
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\backup_server.ps1
 ```
 
 Show logs:
 
-```bash
+```powershell
 docker compose logs -f minecraft
 ```
 
@@ -288,22 +290,22 @@ When you come back to the game later:
 
 1. Back up the world:
 
-```bash
-./scripts/backup_server.sh
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\backup_server.ps1
 ```
 
 2. Update `.env` if you want a new Minecraft or Fabric version.
 3. Update pinned mod `version_id` values in `manifests/mods.json`.
 4. Re-sync the mods:
 
-```bash
-make sync-mods
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\sync_mods.ps1
 ```
 
 5. Recreate the Minecraft container:
 
-```bash
-./scripts/update_server.sh
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\update_server.ps1
 ```
 
 ## Tracked vs Local State
