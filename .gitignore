@@ -1,0 +1,9 @@
+.env
+data/
+backups/
+logs/
+*.log
+tailscale/state/
+mods/.managed/
+__pycache__/
+*.py[cod]

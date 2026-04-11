@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "provider": "modrinth",
+  "mods": [
+    {
+      "slug": "fabric-api",
+      "version_id": "replace-with-modrinth-version-id",
+      "required_on_client": true,
+      "notes": "Pin a Fabric API version that matches the server Minecraft version."
+    }
+  ]
+}
