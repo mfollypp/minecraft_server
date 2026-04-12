@@ -38,6 +38,7 @@ services:
         konkrete
         krypton
         terralith
+        lithostitched
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
