@@ -11,7 +11,9 @@ services:
       TYPE: FABRIC
       EULA: TRUE
       VERSION: X.X.X # Specify the Minecraft version you want to run
-      MOTD: Servidor &a&l%VANILLA%&r da rapaziada na versão &b&n%VERSION%&r
+      MOTD: |
+        Servidor §a§l%VANILLA%§r da rapaziada
+        Versão §b§n%VERSION%§r
       DIFFICULTY: normal
       MODE: survival
       LEVEL: world%date:yyyy-MM-dd%
