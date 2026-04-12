@@ -26,10 +26,10 @@ services:
         xaeros-minimap
         xaeros-world-map
         appleskin
-        jei
+        jei?:27.4.0.22
         clumps
         c2me-fabric
-        distanthorizons
+        distanthorizons?:2.4.5-b-1.21.11
         chunky
     volumes:
       - ./minecraft-data:/data
