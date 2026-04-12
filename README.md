@@ -14,15 +14,15 @@ Each Minecraft version should live in its own branch.
 
 Examples:
 
-- `main`: shared base or latest active setup
-- `mc-1.21.1`
-- `mc-1.21.4`
-- `mc-1.22.x`
+- `master`: shared base or latest active setup
+- `1.21.11`
+- `1.22.x`
+- `26.1.2`
 
 When a new server version is needed:
 
 1. Create a new branch from the closest existing version.
-2. Update the server version, mods, and config in that branch.
+2. Update the server version, mods, and config in that branch (compose.yaml image version and environments).
 3. Keep fixes for that version on the same branch.
 
 This makes it easier to preserve working setups for older servers without mixing changes between versions.
@@ -30,21 +30,19 @@ This makes it easier to preserve working setups for older servers without mixing
 ## What Is In This Repo
 
 - `compose.yaml`: Docker Compose setup for the server
-- `.env.example`: Alter this file in each branch for .env and fill as needed
 
 ## Basic Workflow
 
 1. Switch to the branch for the Minecraft version you want to run.
-2. Configure the server for that version by altering .env file.
-3. Start the server by running:
+2. Start the server by running:
     ```powershell
     docker compose up -d
     ```
-4. Stop the server by running
+3. Stop the server by running
     ```powershell
     docker compose stop minecraft
     ```
-5. Update the server by running
+4. Update the server by running
     ```powershell
     docker compose pull minecraft
     docker compose up -d --force-recreate minecraft
