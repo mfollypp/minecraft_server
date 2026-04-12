@@ -1,28 +1,36 @@
 services:
   minecraft:
-    image: itzg/minecraft-server:${JAVA_VERSION:-latest}
+    image: itzg/minecraft-server:java21
     container_name: minecraft-server
     restart: unless-stopped
-    env_file:
-      - .env
     ports:
-      - "${SERVER_PORT:-25565}:25565"
+      - "25565:25565"
     environment:
-      MEMORY: "${MEMORY}"
-      TZ: "${TZ}"
-      TYPE: "${TYPE}"
+      MEMORY: 8G
+      TZ: Brazil/Sao_Paulo
+      TYPE: FABRIC
       EULA: TRUE
-      VERSION: "${VERSION}"
-      MOTD: "${MOTD}"
-      DIFFICULTY: "${DIFFICULTY}"
-      MODE: "${MODE}"
-      LEVEL: "${LEVEL}"
-      ENABLE_WHITELIST: "${ENABLE_WHITELIST}"
-      WHITELIST: "${WHITELIST}"
-      MODRINTH_PROJECTS: "${MODRINTH_PROJECTS}"
-      ONLINE_MODE: "${ONLINE_MODE}"
-      MAX_PLAYERS: "${MAX_PLAYERS}"
+      VERSION: 1.21.11
+      MOTD: Servidor &a&l%VANILLA%&r da rapaziada na versão &b&n%VERSION%&r
+      DIFFICULTY: normal
+      MODE: survival
+      LEVEL: world%date:yyyy-MM-dd%
+      ENABLE_WHITELIST: FALSE
+      WHITELIST: ""
+      ONLINE_MODE: TRUE
+      MAX_PLAYERS: 8
       PVP: FALSE
+      MODRINTH_PROJECTS: |
+        fabric-api
+        lithium
+        xaeros-minimap
+        xaeros-world-map
+        appleskin
+        jei
+        clumps
+        c2me-fabric
+        distanthorizons
+        chunky
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
@@ -33,11 +41,9 @@ services:
     depends_on:
       minecraft:
         condition: service_healthy
-    env_file:
-      - .env
     environment:
-      TZ: "${TZ}"
-      BACKUP_INTERVAL: "30m"
-      BACKUP_NAME: "${LEVEL}_backup"
+      TZ: Brazil/Sao_Paulo
+      BACKUP_INTERVAL: 30m
+      BACKUP_NAME: world%date:yyyy-MM-dd%_backup
     volumes:
       - ./minecraft-data:/data:ro
