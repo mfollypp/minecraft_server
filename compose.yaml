@@ -25,13 +25,13 @@ services:
       MODRINTH_PROJECTS: |
         fabric-api
         lithium
-        xaeros-minimap?:fabric-1.21.11-25.3.10
-        xaeros-world-map?:fabric-1.21.11-1.40.11
+        xaeros-minimap:fabric-1.21.11-25.3.10
+        xaeros-world-map:fabric-1.21.11-1.40.11
         appleskin
-        jei?:29.5.0.24
+        jei:29.5.0.24
         clumps
-        c2me-fabric
-        distanthorizons?:2.4.5-b-1.21.11
+        c2me-fabric:0.3.7+alpha.0.64+26.1.2-rc-1
+        distanthorizons:2.4.5-b-1.21.11
         chunky
     volumes:
       - ./minecraft-data:/data
