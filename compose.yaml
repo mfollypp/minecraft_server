@@ -1,6 +1,6 @@
 services:
   minecraft:
-    image: itzg/minecraft-server:javaXX # Check on Docker Hub for the java version required by the Minecraft version you want to run
+    image: itzg/minecraft-server:java21 # Check on Docker Hub for the java version required by the Minecraft version you want to run
     container_name: minecraft-server
     restart: unless-stopped
     ports:
@@ -10,7 +10,7 @@ services:
       TZ: Brazil/Sao_Paulo
       TYPE: FABRIC
       EULA: TRUE
-      VERSION: X.X.X # Specify the Minecraft version you want to run
+      VERSION: 1.21.11 # Specify the Minecraft version you want to run
       MOTD: Servidor &a&l%VANILLA%&r da rapaziada na versão &b&n%VERSION%&r
       DIFFICULTY: normal
       MODE: survival
