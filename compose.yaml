@@ -22,6 +22,7 @@ services:
       ONLINE_MODE: TRUE
       MAX_PLAYERS: 8
       PVP: FALSE
+      MODRINTH_LOADER: fabric
       MODRINTH_PROJECTS: |
         fabric-api
         lithium
@@ -33,6 +34,10 @@ services:
         c2me-fabric
         distanthorizons
         chunky
+        ferrite-core
+        konkrete
+        krypton
+        terralith
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
