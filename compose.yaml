@@ -32,13 +32,11 @@ services:
         jei
         clumps
         c2me-fabric
-        distanthorizons
         chunky
         ferrite-core
         konkrete
         krypton
-        terralith
-        lithostitched
+        voxy-worldgen
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
