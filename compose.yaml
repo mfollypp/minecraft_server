@@ -38,6 +38,7 @@ services:
         krypton
         terralith
         lithostitched
+        voxy-worldgen
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
