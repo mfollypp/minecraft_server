@@ -12,7 +12,7 @@ services:
       EULA: TRUE
       VERSION: X.X.X # Specify the Minecraft version you want to run
       MOTD: |
-        Servidor §a§l%VANILLA%§r da rapaziada
+        Servidor §a§lVANILLA§r da rapaziada
         Versão §b§n%VERSION%§r
       DIFFICULTY: normal
       MODE: survival
