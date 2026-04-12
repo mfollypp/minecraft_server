@@ -25,8 +25,8 @@ services:
       MODRINTH_PROJECTS: |
         fabric-api
         lithium
-        xaeros-minimap
-        xaeros-world-map
+        xaeros-minimap?:fabric-1.21.11-25.3.10
+        xaeros-world-map?:fabric-1.21.11-1.40.11
         appleskin
         jei?:29.5.0.24
         clumps
