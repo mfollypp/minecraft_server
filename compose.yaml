@@ -1,6 +1,6 @@
 services:
   minecraft:
-    image: itzg/minecraft-server:java21
+    image: itzg/minecraft-server:${JAVA_VERSION:-latest}
     container_name: minecraft-server
     restart: unless-stopped
     env_file:
@@ -8,25 +8,36 @@ services:
     ports:
       - "${SERVER_PORT:-25565}:25565"
     environment:
-      TZ: "${TZ}"
-      EULA: "${EULA}"
-      VERSION: "${VERSION}"
-      TYPE: "${TYPE}"
-      FABRIC_LOADER_VERSION: "${FABRIC_LOADER_VERSION}"
-      FABRIC_INSTALLER_VERSION: "${FABRIC_INSTALLER_VERSION}"
       MEMORY: "${MEMORY}"
+      TZ: "${TZ}"
+      TYPE: "${TYPE}"
+      EULA: TRUE
+      VERSION: "${VERSION}"
+      MOTD: "${MOTD}"
       DIFFICULTY: "${DIFFICULTY}"
       MODE: "${MODE}"
-      ONLINE_MODE: "${ONLINE_MODE}"
+      LEVEL: "${LEVEL}"
       ENABLE_WHITELIST: "${ENABLE_WHITELIST}"
+      WHITELIST: "${WHITELIST}"
+      MODRINTH_PROJECTS: "${MODRINTH_PROJECTS}"
+      ONLINE_MODE: "${ONLINE_MODE}"
       MAX_PLAYERS: "${MAX_PLAYERS}"
-      MOTD: "${MOTD}"
-      OVERRIDE_SERVER_PROPERTIES: "false"
+      PVP: FALSE
     volumes:
-      - ./data:/data
-      - ./config/server.properties:/data/server.properties:ro
-      - ./config/ops.json:/data/ops.json
-      - ./config/whitelist.json:/data/whitelist.json
-      - ./mods:/data/mods
+      - ./minecraft-data:/data
     stdin_open: true
     tty: true
+  backup:
+    image: itzg/mc-backup
+    restart: unless-stopped
+    depends_on:
+      minecraft:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      TZ: "${TZ}"
+      BACKUP_INTERVAL: "30m"
+      BACKUP_NAME: "${LEVEL}_backup"
+    volumes:
+      - ./minecraft-data:/data:ro
