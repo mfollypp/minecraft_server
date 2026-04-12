@@ -36,8 +36,6 @@ services:
         ferrite-core
         konkrete
         krypton
-        terralith
-        lithostitched
         voxy-worldgen
     volumes:
       - ./minecraft-data:/data
