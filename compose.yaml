@@ -37,7 +37,7 @@ services:
         konkrete
         krypton
         voxy-worldgen
-        voxy
+        voxy?:0.2.13-alpha
         trashslot
     volumes:
       - ./minecraft-data:/data
