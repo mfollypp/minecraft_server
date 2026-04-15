@@ -38,7 +38,7 @@ services:
         krypton
         voxy-worldgen
         trashslot
-        balm:?21.11.9+fabric-1.21.11
+        balm?:21.11.9+fabric-1.21.11
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
