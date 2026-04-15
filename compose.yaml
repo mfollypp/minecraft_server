@@ -37,8 +37,8 @@ services:
         konkrete
         krypton
         voxy-worldgen
-        voxy?:0.2.13-alpha
         trashslot
+        balm:?21.11.9+fabric-1.21.11
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
