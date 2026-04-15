@@ -16,7 +16,7 @@ services:
         Versão §b§n%VERSION%§r
       DIFFICULTY: normal
       MODE: survival
-      LEVEL: world%date:yyyy-MM-dd%
+      LEVEL: world
       ENABLE_WHITELIST: FALSE
       WHITELIST: ""
       ONLINE_MODE: FALSE
@@ -52,6 +52,6 @@ services:
     environment:
       TZ: Brazil/Sao_Paulo
       BACKUP_INTERVAL: 30m
-      BACKUP_NAME: world%date:yyyy-MM-dd%_backup
+      BACKUP_NAME: world_%date:yyyy-MM-dd%_backup
     volumes:
       - ./minecraft-data:/data:ro
