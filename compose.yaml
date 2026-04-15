@@ -19,7 +19,7 @@ services:
       LEVEL: world%date:yyyy-MM-dd%
       ENABLE_WHITELIST: FALSE
       WHITELIST: ""
-      ONLINE_MODE: TRUE
+      ONLINE_MODE: FALSE
       MAX_PLAYERS: 8
       PVP: FALSE
       MODRINTH_LOADER: fabric
@@ -37,6 +37,8 @@ services:
         konkrete
         krypton
         voxy-worldgen
+        voxy
+        trashslot
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
