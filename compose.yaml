@@ -6,7 +6,7 @@ services:
     ports:
       - "25565:25565"
     environment:
-      MEMORY: 12G
+      MEMORY: 8G
       TZ: Brazil/Sao_Paulo
       TYPE: FABRIC
       EULA: TRUE
@@ -16,7 +16,7 @@ services:
         Versão §b§n%VERSION%§r
       DIFFICULTY: normal
       MODE: survival
-      LEVEL: world%date:yyyy-MM-dd%
+      LEVEL: world
       ENABLE_WHITELIST: FALSE
       WHITELIST: ""
       ONLINE_MODE: TRUE
@@ -25,14 +25,25 @@ services:
       MODRINTH_PROJECTS: |
         fabric-api
         lithium
-        xaeros-minimap?:fabric-1.21.11-25.3.10
-        xaeros-world-map?:fabric-1.21.11-1.40.11
+        journeymap
         appleskin
         jei?:29.5.0.24
         clumps
         c2me-fabric?:0.3.7+alpha.0.64+26.1.2-rc-1
         distanthorizons?:2.4.5-b-1.21.11
         chunky
+        terralith
+        incendium
+        lithostitched
+        towns-and-towers
+        veinminer
+        collective
+        double-doors
+        dynamic-lights
+        trashslot
+        balm
+        placeholder-api
+        crafting-tweaks
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
@@ -46,6 +57,6 @@ services:
     environment:
       TZ: Brazil/Sao_Paulo
       BACKUP_INTERVAL: 30m
-      BACKUP_NAME: world%date:yyyy-MM-dd%_backup
+      BACKUP_NAME: world_%date:yyyy-MM-dd%_backup
     volumes:
       - ./minecraft-data:/data:ro
