@@ -33,7 +33,7 @@ services:
         distanthorizons?:2.4.5-b-1.21.11
         chunky
         terralith
-        incendium
+        incendium?:5.4.12
         lithostitched
         towns-and-towers
         veinminer
