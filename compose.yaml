@@ -25,7 +25,7 @@ services:
       MODRINTH_PROJECTS: |
         fabric-api
         lithium
-        journeymap
+        journeymap?:26.1-6.0.0-beta.66+fabric
         appleskin
         jei?:29.5.0.24
         clumps
