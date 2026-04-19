@@ -36,7 +36,7 @@ services:
         clumps
         c2me-fabric:0.3.7+alpha.0.7+1.21.11 # tried this version because the latest one was asking for java22
         distanthorizons
-        # voxy-worldgen # if uncomment to use it, comment distanthorizons, because they are incompatible
+        # voxy-worldgen # uncomment to use but then comment distanthorizons
         terralith
         towns-and-towers
         chunky
