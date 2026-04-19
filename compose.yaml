@@ -40,7 +40,6 @@ services:
         terralith
         towns-and-towers
         chunky
-        crafting-tweaks
         incendium
         double-doors
         dynamic-lights
