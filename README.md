@@ -33,6 +33,7 @@ This makes it easier to preserve working setups for older servers without mixing
 
 ## Basic Workflow
 
+0. Set system environment variable `MINESERVER_RCON_PASSWORD` for any value you want
 1. Switch to the branch for the Minecraft version you want to run.
 2. Start the server by running:
     ```powershell
