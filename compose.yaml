@@ -25,21 +25,40 @@ services:
       RCON_PASSWORD: ${MINESERVER_RCON_PASSWORD}
       MODRINTH_LOADER: fabric
       MODRINTH_PROJECTS: |
-        fabric-api
-        lithium
+        # Main mods
         xaeros-minimap
         xaeros-world-map
+        xaeros-map-server-utils
         appleskin
-        jei?:27.4.0.22
+        jei
+        veinminer
         clumps
         c2me-fabric
+        distanthorizons
+        # voxy-worldgen
+        terralith
+        towns-and-towers
         chunky
-        ferrite-core
-        konkrete
-        krypton
-        voxy-worldgen
+        crafting-tweaks
+        incendium
+        double-doors
+        dynamic-lights
         trashslot
-        balm?:21.11.9+fabric-1.21.11
+        rightclickharvest
+        # Performance and lib mods
+        fabric-api
+        cloth-config
+        ferrite-core
+        lithium
+        fabric-language-kotlin
+        collective
+        balm
+        placeholder-api
+        krypton
+        konkrete
+        lithostitched
+        cristel-lib
+        silk
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
