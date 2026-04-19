@@ -26,7 +26,7 @@ services:
       MODRINTH_PROJECTS_DEFAULT_VERSION_TYPE: alpha
       MODRINTH_LOADER: fabric
       MODRINTH_PROJECTS: |
-        # Main mods
+        # MAIN MODS
         xaeros-minimap
         xaeros-world-map
         xaeros-map-server-utils
@@ -34,7 +34,7 @@ services:
         jei
         veinminer
         clumps
-        c2me-fabric
+        c2me-fabric:0.3.7+alpha.0.7+1.21.11
         distanthorizons
         # voxy-worldgen
         terralith
@@ -46,7 +46,7 @@ services:
         dynamic-lights
         trashslot
         rightclickharvest
-        # Performance and lib mods
+        # PERFORMANCE AND LIB MODS
         fabric-api
         cloth-config
         ferrite-core
@@ -60,6 +60,8 @@ services:
         lithostitched
         cristel-lib
         silk
+        architectury-api
+        jamlib
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
