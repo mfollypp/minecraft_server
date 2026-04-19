@@ -26,19 +26,39 @@ services:
       MODRINTH_PROJECTS_DEFAULT_VERSION_TYPE: alpha
       MODRINTH_LOADER: fabric
       MODRINTH_PROJECTS: |
-        fabric-api
-        lithium
+        # ========================================= MAIN MODS =========================================
         xaeros-minimap
         xaeros-world-map
+        xaeros-map-server-utils
         appleskin
         jei
+        veinminer
         clumps
         c2me-fabric
+        distanthorizons
+        # voxy-worldgen # uncomment to use but then comment distanthorizons
         chunky
+        crafting-tweaks
+        double-doors
+        dynamic-lights
+        trashslot
+        rightclickharvest
+        # ========================================= PERFORMANCE AND LIB MODS =========================================
+        fabric-api
+        cloth-config
         ferrite-core
-        konkrete
+        lithium
+        fabric-language-kotlin
+        collective
+        balm
+        placeholder-api
         krypton
-        voxy-worldgen
+        konkrete
+        lithostitched
+        cristel-lib
+        silk
+        architectury-api
+        jamlib
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
