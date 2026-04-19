@@ -23,23 +23,41 @@ services:
       MAX_PLAYERS: 8
       PVP: FALSE
       RCON_PASSWORD: ${MINESERVER_RCON_PASSWORD}
+      MODRINTH_PROJECTS_DEFAULT_VERSION_TYPE: alpha
       MODRINTH_LOADER: fabric
       MODRINTH_PROJECTS: |
-        fabric-api
-        lithium
+        # ========================================= MAIN MODS =========================================
         xaeros-minimap
         xaeros-world-map
+        xaeros-map-server-utils
         appleskin
-        jei?:27.4.0.22
+        jei
+        veinminer
         clumps
-        c2me-fabric
+        c2me-fabric:0.3.7+alpha.0.7+1.21.11 # tried this version because the latest one was asking for java22
+        distanthorizons
+        # voxy-worldgen # uncomment to use but then comment distanthorizons
         chunky
-        ferrite-core
-        konkrete
-        krypton
-        voxy-worldgen
+        crafting-tweaks
+        double-doors
+        dynamic-lights
         trashslot
-        balm?:21.11.9+fabric-1.21.11
+        rightclickharvest
+        # ========================================= PERFORMANCE AND LIB MODS =========================================
+        fabric-api
+        cloth-config
+        ferrite-core
+        lithium
+        fabric-language-kotlin
+        collective
+        balm
+        placeholder-api
+        krypton
+        konkrete
+        cristel-lib
+        silk
+        architectury-api
+        jamlib
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
