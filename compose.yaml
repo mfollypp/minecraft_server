@@ -23,6 +23,7 @@ services:
       MAX_PLAYERS: 8
       PVP: FALSE
       RCON_PASSWORD: ${MINESERVER_RCON_PASSWORD}
+      MODRINTH_LOADER: fabric
       MODRINTH_PROJECTS: |
         fabric-api
         lithium
