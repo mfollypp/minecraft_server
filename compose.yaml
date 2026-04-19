@@ -64,6 +64,6 @@ services:
       RCON_PASSWORD: ${MINESERVER_RCON_PASSWORD}
       TZ: Brazil/Sao_Paulo
       BACKUP_INTERVAL: 30m
-      BACKUP_NAME: world_%date:yyyy-MM-dd%_backup
+      BACKUP_NAME: world-backup
     volumes:
       - ./minecraft-data:/data:ro
