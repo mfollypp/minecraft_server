@@ -38,6 +38,7 @@ services:
         distanthorizons
         # voxy-worldgen # uncomment to use but then comment distanthorizons
         terralith
+        # tectonic
         towns-and-towers
         chunky
         incendium
