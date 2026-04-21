@@ -46,7 +46,7 @@ services:
         double-doors
         dynamic-lights
         trashslot
-        rightclickharvest
+        # rightclickharvest
         # ========================================= PERFORMANCE AND LIB MODS =========================================
         fabric-api
         cloth-config
