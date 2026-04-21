@@ -61,7 +61,7 @@ services:
         lithostitched
         cristel-lib
         silk
-        architectury-api
+        # architectury-api
         # jamlib
     volumes:
       - ./minecraft-data:/data
