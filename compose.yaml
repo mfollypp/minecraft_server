@@ -61,7 +61,7 @@ services:
         cristel-lib
         silk
         architectury-api
-        jamlib
+        # jamlib
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
