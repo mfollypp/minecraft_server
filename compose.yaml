@@ -27,9 +27,10 @@ services:
       MODRINTH_LOADER: fabric
       MODRINTH_PROJECTS: |
         # ========================================= MAIN MODS =========================================
-        xaeros-minimap
-        xaeros-world-map
-        xaeros-map-server-utils
+        # xaeros-minimap
+        # xaeros-world-map
+        # xaeros-map-server-utils
+        journeymap
         appleskin
         jei
         veinminer
