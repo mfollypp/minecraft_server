@@ -35,8 +35,8 @@ services:
         veinminer
         clumps
         c2me-fabric:0.3.7+alpha.0.7+1.21.11 # tried this version because the latest one was asking for java22
-        distanthorizons
-        # voxy-worldgen # uncomment to use but then comment distanthorizons
+        # distanthorizons
+        voxy-worldgen # uncomment to use but then comment distanthorizons
         chunky
         crafting-tweaks
         double-doors
