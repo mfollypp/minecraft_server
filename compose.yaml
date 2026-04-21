@@ -38,7 +38,6 @@ services:
         distanthorizons
         # voxy-worldgen # uncomment to use but then comment distanthorizons
         chunky
-        crafting-tweaks
         double-doors
         dynamic-lights
         trashslot
