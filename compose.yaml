@@ -55,7 +55,7 @@ services:
         collective
         balm
         placeholder-api
-        krypton
+        # krypton
         konkrete
         lithostitched
         cristel-lib
