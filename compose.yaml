@@ -35,13 +35,15 @@ services:
         veinminer
         clumps
         c2me-fabric
-        distanthorizons
-        # voxy-worldgen # uncomment to use but then comment distanthorizons
+        voxy-worldgen
         chunky
+        crafting-tweaks
         double-doors
         dynamic-lights
         trashslot
         rightclickharvest
+        animal_feeding_trough
+        grind-enchantments
         # ========================================= PERFORMANCE AND LIB MODS =========================================
         fabric-api
         cloth-config
@@ -53,7 +55,6 @@ services:
         placeholder-api
         krypton
         konkrete
-        lithostitched
         cristel-lib
         silk
         architectury-api
@@ -72,7 +73,9 @@ services:
       RCON_HOST: minecraft
       RCON_PASSWORD: ${MINESERVER_RCON_PASSWORD}
       TZ: Brazil/Sao_Paulo
-      BACKUP_INTERVAL: 30m
+      BACKUP_INTERVAL: 1h
       BACKUP_NAME: world-backup
+      PRUNE_BACKUPS_DAYS: 1
+      PAUSE_IF_NO_PLAYERS: TRUE
     volumes:
       - ./minecraft-data:/data:ro
