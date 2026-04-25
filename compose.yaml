@@ -62,17 +62,17 @@ services:
       - ./minecraft-data:/data
     stdin_open: true
     tty: true
-  backup:
-    image: itzg/mc-backup
-    restart: unless-stopped
-    depends_on:
-      minecraft:
-        condition: service_healthy
-    environment:
-      RCON_HOST: minecraft
-      RCON_PASSWORD: ${MINESERVER_RCON_PASSWORD}
-      TZ: Brazil/Sao_Paulo
-      BACKUP_INTERVAL: 30m
-      BACKUP_NAME: world-backup
-    volumes:
-      - ./minecraft-data:/data:ro
+  # backup:
+  #   image: itzg/mc-backup
+  #   restart: unless-stopped
+  #   depends_on:
+  #     minecraft:
+  #       condition: service_healthy
+  #   environment:
+  #     RCON_HOST: minecraft
+  #     RCON_PASSWORD: ${MINESERVER_RCON_PASSWORD}
+  #     TZ: Brazil/Sao_Paulo
+  #     BACKUP_INTERVAL: 30m
+  #     BACKUP_NAME: world-backup
+  #   volumes:
+  #     - ./minecraft-data:/data:ro
