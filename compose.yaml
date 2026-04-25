@@ -43,6 +43,7 @@ services:
         dynamic-lights
         trashslot
         rightclickharvest
+        animal_feeding_trough
         # ========================================= PERFORMANCE AND LIB MODS =========================================
         fabric-api
         cloth-config
