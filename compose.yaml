@@ -44,6 +44,7 @@ services:
         trashslot
         rightclickharvest
         animal_feeding_trough
+        grind-enchantments
         # ========================================= PERFORMANCE AND LIB MODS =========================================
         fabric-api
         cloth-config
