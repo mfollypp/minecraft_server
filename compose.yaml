@@ -8,11 +8,11 @@ services:
     environment:
       MEMORY: 8G
       TZ: Brazil/Sao_Paulo
-      TYPE: MODRINTH
+      TYPE: MODRINTH # Use this type for modpacks, use FABRIC for the modded
       EULA: TRUE
       VERSION: 1.21.1 # Specify the Minecraft version you want to run
       MOTD: |
-        Servidor §a§lVANILLA§r da rapaziada
+        Servidor §a§lCOBBLEVERSE§r da rapaziada
         Versão §b§n%VERSION%§r
       DIFFICULTY: normal
       MODE: survival
@@ -23,12 +23,11 @@ services:
       MAX_PLAYERS: 8
       PVP: FALSE
       RCON_PASSWORD: ${MINESERVER_RCON_PASSWORD}
-      MODRINTH_MODPACK_VERSION_TYPE: alpha
-      MODRINTH_PROJECTS_DEFAULT_VERSION_TYPE: alpha
       MODRINTH_LOADER: fabric
+      MODRINTH_MODPACK_VERSION_TYPE: alpha
       MODRINTH_MODPACK: cobbleverse
-      MODRINTH_PROJECTS: |
-        distanthorizons
+      MODRINTH_PROJECTS_DEFAULT_VERSION_TYPE: alpha
+      MODRINTH_PROJECTS: distanthorizons
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
