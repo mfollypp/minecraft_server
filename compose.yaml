@@ -1,6 +1,6 @@
 services:
   minecraft:
-    image: itzg/minecraft-server:javaXX # Check on Docker Hub for the java version required by the Minecraft version you want to run
+    image: itzg/minecraft-server:java21 # Check on Docker Hub for the java version required by the Minecraft version you want to run
     container_name: minecraft-server
     restart: unless-stopped
     ports:
@@ -10,7 +10,7 @@ services:
       TZ: Brazil/Sao_Paulo
       TYPE: FABRIC
       EULA: TRUE
-      VERSION: X.X.X # Specify the Minecraft version you want to run
+      VERSION: 1.21.1 # Specify the Minecraft version you want to run
       MOTD: |
         Servidor §a§lVANILLA§r da rapaziada
         Versão §b§n%VERSION%§r
@@ -23,42 +23,9 @@ services:
       MAX_PLAYERS: 8
       PVP: FALSE
       RCON_PASSWORD: ${MINESERVER_RCON_PASSWORD}
-      MODRINTH_PROJECTS_DEFAULT_VERSION_TYPE: alpha
+      MODRINTH_MODPACK_VERSION_TYPE: alpha
       MODRINTH_LOADER: fabric
-      MODRINTH_PROJECTS: |
-        # ========================================= MAIN MODS =========================================
-        xaeros-minimap
-        xaeros-world-map
-        xaeros-map-server-utils
-        appleskin
-        jei
-        veinminer
-        clumps
-        c2me-fabric
-        voxy-worldgen
-        chunky
-        crafting-tweaks
-        double-doors
-        dynamic-lights
-        trashslot
-        rightclickharvest
-        animal_feeding_trough
-        grind-enchantments
-        # ========================================= PERFORMANCE AND LIB MODS =========================================
-        fabric-api
-        cloth-config
-        ferrite-core
-        lithium
-        fabric-language-kotlin
-        collective
-        balm
-        placeholder-api
-        krypton
-        konkrete
-        cristel-lib
-        silk
-        architectury-api
-        jamlib
+      MODRINTH_MODPACK: cobbleverse
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
