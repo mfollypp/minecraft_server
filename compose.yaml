@@ -25,7 +25,7 @@ services:
       RCON_PASSWORD: ${MINESERVER_RCON_PASSWORD}
       MODRINTH_MODPACK_VERSION_TYPE: alpha
       MODRINTH_LOADER: fabric
-      MODRINTH_PROJECT: cobbleverse
+      MODRINTH_PROJECTS: cobbleverse
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
