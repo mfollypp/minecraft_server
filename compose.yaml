@@ -26,8 +26,6 @@ services:
       MODRINTH_LOADER: fabric
       MODRINTH_MODPACK_VERSION_TYPE: alpha
       MODRINTH_MODPACK: cobbleverse
-      MODRINTH_PROJECTS_DEFAULT_VERSION_TYPE: alpha
-      MODRINTH_PROJECTS: distanthorizons
     volumes:
       - ./minecraft-data:/data
     stdin_open: true
