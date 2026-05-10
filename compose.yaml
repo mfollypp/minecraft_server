@@ -45,6 +45,7 @@ services:
         rightclickharvest
         animal_feeding_trough
         grind-enchantments
+        waystones
         # ========================================= PERFORMANCE AND LIB MODS =========================================
         fabric-api
         cloth-config
